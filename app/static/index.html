@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>站场进路联锁推演台</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header>
+  <h1>站场进路联锁推演台</h1>
+  <div id="seq-banner" class="banner hidden"></div>
+</header>
+
+<main>
+  <section class="panel" id="import-panel">
+    <h2>1 · 站场导入</h2>
+    <div class="row">
+      <input type="file" id="yard-file" accept=".json,application/json">
+      <button id="load-demo">载入示例站场</button>
+      <button id="btn-import" disabled>导入</button>
+    </div>
+    <div id="import-msg" class="msg"></div>
+  </section>
+
+  <section class="panel wide">
+    <h2>2 · 站场图</h2>
+    <div id="diagram-wrap">
+      <svg id="diagram" viewBox="0 0 640 260" preserveAspectRatio="xMidYMid meet"></svg>
+    </div>
+    <div class="legend">
+      <span class="lg lg-idle">空闲区段</span>
+      <span class="lg lg-locked">锁闭</span>
+      <span class="lg lg-occ">占用</span>
+      <span class="lg lg-cleared">已出清</span>
+      <span class="lg lg-fault">故障锁闭</span>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>3 · 进路申请与信号</h2>
+    <div id="route-list" class="route-list"><em>导入站场后显示进路</em></div>
+    <div id="verdict-box" class="verdict"></div>
+  </section>
+
+  <section class="panel">
+    <h2>4 · 检测上报</h2>
+    <div class="row">
+      <label>序号 <input type="number" id="det-seq" min="1" style="width:80px"></label>
+      <label>检测器
+        <select id="det-detector"><option value="">（按区段）</option></select>
+      </label>
+      <label>区段
+        <select id="det-section"></select>
+      </label>
+      <label>状态
+        <select id="det-state">
+          <option value="OCCUPY">OCCUPY 占用</option>
+          <option value="CLEAR">CLEAR 出清</option>
+        </select>
+      </label>
+      <button id="btn-detect">上报</button>
+    </div>
+    <div class="row">
+      <small class="hint">序号留空则自动取“下一期望序号”。模拟按钮按进路顺序自动生成占用/出清序列。</small>
+    </div>
+    <div id="active-routes"></div>
+  </section>
+
+  <section class="panel wide">
+    <h2>5 · 裁决事件（追加写，不可改写）</h2>
+    <div class="row">
+      <label>过滤
+        <select id="event-filter">
+          <option value="">全部</option>
+          <option value="ROUTE_REQUEST">放行裁决</option>
+          <option value="DETECTION">检测</option>
+          <option value="ROUTE_FAULT">故障锁闭</option>
+          <option value="ROUTE_COMPLETED">进路完成</option>
+          <option value="SECTION_RELEASE">区段释放</option>
+          <option value="ROUTE_RESET">故障复位</option>
+        </select>
+      </label>
+      <button id="btn-refresh-events">刷新</button>
+      <span class="spacer"></span>
+      <button id="btn-replay" class="secondary">▶ 回放裁决…</button>
+    </div>
+    <div id="event-log" class="event-log"></div>
+  </section>
+</main>
+
+<div id="replay-modal" class="modal hidden">
+  <div class="modal-box wide">
+    <h2>裁决回放</h2>
+    <div class="row">
+      <label>到事件序号
+        <input type="number" id="replay-id" min="1" style="width:100px">
+      </label>
+      <button id="btn-do-replay">重建现场</button>
+      <button id="btn-replay-prev">◀ 上一条</button>
+      <button id="btn-replay-next">下一条 ▶</button>
+      <span class="spacer"></span>
+      <button id="btn-close-replay" class="secondary">关闭</button>
+    </div>
+    <pre id="replay-output" class="replay-out"></pre>
+  </div>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

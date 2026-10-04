@@ -1,0 +1,13 @@
+services:
+  interlock:
+    build: .
+    image: interlock-console:latest
+    container_name: interlock-console
+    ports:
+      - "8000:8000"
+    volumes:
+      - interlock-data:/data
+    restart: unless-stopped
+
+volumes:
+  interlock-data:

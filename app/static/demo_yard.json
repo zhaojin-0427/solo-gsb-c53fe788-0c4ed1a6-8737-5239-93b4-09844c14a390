@@ -1,0 +1,368 @@
+{
+  "id": "demo-yard",
+  "name": "示例站（双正线 + 渡线）",
+  "endpoints": [
+    {
+      "id": "X",
+      "x": 30,
+      "y": 70,
+      "signal": "X"
+    },
+    {
+      "id": "S",
+      "x": 30,
+      "y": 210,
+      "signal": "S"
+    },
+    {
+      "id": "XN",
+      "x": 590,
+      "y": 70,
+      "signal": "XN"
+    },
+    {
+      "id": "SN",
+      "x": 590,
+      "y": 210,
+      "signal": "SN"
+    }
+  ],
+  "signals": [
+    {
+      "id": "X",
+      "name": "下行进站 X"
+    },
+    {
+      "id": "S",
+      "name": "上行进站 S"
+    },
+    {
+      "id": "XN",
+      "name": "下行出站 XN"
+    },
+    {
+      "id": "SN",
+      "name": "上行出站 SN"
+    }
+  ],
+  "switches": [
+    {
+      "id": "3#",
+      "x": 150,
+      "y": 70
+    },
+    {
+      "id": "7#",
+      "x": 150,
+      "y": 210
+    },
+    {
+      "id": "5#",
+      "x": 470,
+      "y": 70
+    },
+    {
+      "id": "11#",
+      "x": 470,
+      "y": 210
+    }
+  ],
+  "sections": [
+    {
+      "id": "1DG",
+      "a": "X",
+      "b": "3#",
+      "a_leg": null,
+      "b_leg": null,
+      "detector": "D1",
+      "x": 85,
+      "y": 52,
+      "length": 1.2
+    },
+    {
+      "id": "3DG",
+      "a": "3#",
+      "b": "5#",
+      "a_leg": "N",
+      "b_leg": "N",
+      "detector": "D3",
+      "x": 310,
+      "y": 52,
+      "length": 3.2
+    },
+    {
+      "id": "5DG",
+      "a": "5#",
+      "b": "XN",
+      "a_leg": null,
+      "b_leg": null,
+      "detector": "D5",
+      "x": 535,
+      "y": 52,
+      "length": 1.2
+    },
+    {
+      "id": "7DG",
+      "a": "S",
+      "b": "7#",
+      "a_leg": null,
+      "b_leg": null,
+      "detector": "D7",
+      "x": 85,
+      "y": 192,
+      "length": 1.2
+    },
+    {
+      "id": "9DG",
+      "a": "7#",
+      "b": "11#",
+      "a_leg": "N",
+      "b_leg": "N",
+      "detector": "D9",
+      "x": 310,
+      "y": 192,
+      "length": 3.2
+    },
+    {
+      "id": "11DG",
+      "a": "11#",
+      "b": "SN",
+      "a_leg": null,
+      "b_leg": null,
+      "detector": "D11",
+      "x": 535,
+      "y": 192,
+      "length": 1.2
+    },
+    {
+      "id": "15DG",
+      "a": "3#",
+      "b": "7#",
+      "a_leg": "R",
+      "b_leg": "R",
+      "detector": "D15",
+      "x": 130,
+      "y": 140,
+      "length": 1.4
+    },
+    {
+      "id": "13DG",
+      "a": "5#",
+      "b": "11#",
+      "a_leg": "R",
+      "b_leg": "R",
+      "detector": "D13",
+      "x": 490,
+      "y": 140,
+      "length": 1.4
+    }
+  ],
+  "resources": [
+    {
+      "id": "P1",
+      "name": "1号安全线（侧防）"
+    },
+    {
+      "id": "P2",
+      "name": "专用线（侧防）"
+    }
+  ],
+  "routes": [
+    {
+      "id": "X-XN-I",
+      "from": "X",
+      "to": "XN",
+      "sections": [
+        "1DG",
+        "3DG",
+        "5DG"
+      ],
+      "switches": [
+        {
+          "id": "3#",
+          "position": "N"
+        },
+        {
+          "id": "5#",
+          "position": "N"
+        }
+      ],
+      "flanks": [
+        "P1"
+      ],
+      "signal": "X"
+    },
+    {
+      "id": "XN-X-I",
+      "from": "XN",
+      "to": "X",
+      "sections": [
+        "5DG",
+        "3DG",
+        "1DG"
+      ],
+      "switches": [
+        {
+          "id": "5#",
+          "position": "N"
+        },
+        {
+          "id": "3#",
+          "position": "N"
+        }
+      ],
+      "flanks": [
+        "P1"
+      ],
+      "signal": "XN"
+    },
+    {
+      "id": "S-SN-II",
+      "from": "S",
+      "to": "SN",
+      "sections": [
+        "7DG",
+        "9DG",
+        "11DG"
+      ],
+      "switches": [
+        {
+          "id": "7#",
+          "position": "N"
+        },
+        {
+          "id": "11#",
+          "position": "N"
+        }
+      ],
+      "flanks": [
+        "P2"
+      ],
+      "signal": "S"
+    },
+    {
+      "id": "SN-S-II",
+      "from": "SN",
+      "to": "S",
+      "sections": [
+        "11DG",
+        "9DG",
+        "7DG"
+      ],
+      "switches": [
+        {
+          "id": "11#",
+          "position": "N"
+        },
+        {
+          "id": "7#",
+          "position": "N"
+        }
+      ],
+      "flanks": [
+        "P2"
+      ],
+      "signal": "SN"
+    },
+    {
+      "id": "X-S-W",
+      "from": "X",
+      "to": "S",
+      "sections": [
+        "1DG",
+        "15DG",
+        "7DG"
+      ],
+      "switches": [
+        {
+          "id": "3#",
+          "position": "R"
+        },
+        {
+          "id": "7#",
+          "position": "R"
+        }
+      ],
+      "flanks": [
+        "P1",
+        "P2"
+      ],
+      "signal": "X"
+    },
+    {
+      "id": "S-X-W",
+      "from": "S",
+      "to": "X",
+      "sections": [
+        "7DG",
+        "15DG",
+        "1DG"
+      ],
+      "switches": [
+        {
+          "id": "7#",
+          "position": "R"
+        },
+        {
+          "id": "3#",
+          "position": "R"
+        }
+      ],
+      "flanks": [
+        "P1",
+        "P2"
+      ],
+      "signal": "S"
+    },
+    {
+      "id": "XN-SN-E",
+      "from": "XN",
+      "to": "SN",
+      "sections": [
+        "5DG",
+        "13DG",
+        "11DG"
+      ],
+      "switches": [
+        {
+          "id": "5#",
+          "position": "R"
+        },
+        {
+          "id": "11#",
+          "position": "R"
+        }
+      ],
+      "flanks": [
+        "P1",
+        "P2"
+      ],
+      "signal": "XN"
+    },
+    {
+      "id": "SN-XN-E",
+      "from": "SN",
+      "to": "XN",
+      "sections": [
+        "11DG",
+        "13DG",
+        "5DG"
+      ],
+      "switches": [
+        {
+          "id": "11#",
+          "position": "R"
+        },
+        {
+          "id": "5#",
+          "position": "R"
+        }
+      ],
+      "flanks": [
+        "P1",
+        "P2"
+      ],
+      "signal": "SN"
+    }
+  ]
+}
